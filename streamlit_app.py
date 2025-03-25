@@ -2,7 +2,7 @@ import streamlit as st
 
 # Sample food items
 food_items = {
-    "Pizza": {"price": 8.99, "image": "https://via.placeholder.com/150"},
+    "Pizza": {"price": 8.99, "image": "https://pin.it/3SmR2sQdK"},
     "Burger": {"price": 5.99, "image": "https://via.placeholder.com/150"},
     "Pasta": {"price": 7.99, "image": "https://via.placeholder.com/150"},
     "Salad": {"price": 4.99, "image": "https://via.placeholder.com/150"},
