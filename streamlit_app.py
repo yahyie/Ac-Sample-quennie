@@ -3,8 +3,8 @@ import streamlit as st
 # Sample food items
 food_items = {
     "Pizza": {"price": 8.99, "image": "https://media.istockphoto.com/id/938742222/photo/cheesy-pepperoni-pizza.jpg?s=612x612&w=0&k=20&c=D1z4xPCs-qQIZyUqRcHrnsJSJy_YbUD9udOrXpilNpI="},
-    "Burger": {"price": 5.99, "image": "https://via.placeholder.com/150"},
-    "Pasta": {"price": 7.99, "image": "https://via.placeholder.com/150"},
+    "Burger": {"price": 5.99, "image": "https://media.istockphoto.com/id/1309352410/photo/cheeseburger-with-tomato-and-lettuce-on-wooden-board.jpg?s=2048x2048&w=is&k=20&c=wydysVEp52o1ULrj9XWI_f8M2lZ06qm8xlBl6GmjTSQ="},
+    "Pasta": {"price": 7.99, "image": "https://media.istockphoto.com/id/1325172440/photo/spaghetti-alla-puttanesca-italian-pasta-dish-with-tomatoes-black-olives-capers-anchovies-and.jpg?s=2048x2048&w=is&k=20&c=4zNK9SB_-l_iyPTw2tgH_2xCQhZqlhMnkkMKkgqZ8-M="},
     "Salad": {"price": 4.99, "image": "https://via.placeholder.com/150"},
 }
 
