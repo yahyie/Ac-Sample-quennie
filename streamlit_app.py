@@ -1,39 +1,67 @@
 import streamlit as st
-import pandas as pd
-import io
 
-def main():
-    st.title("File Upload and Download Application")
+# Sample food items
+food_items = {
+    "Pizza": {"price": 8.99, "image": "https://via.placeholder.com/150"},
+    "Burger": {"price": 5.99, "image": "https://via.placeholder.com/150"},
+    "Pasta": {"price": 7.99, "image": "https://via.placeholder.com/150"},
+    "Salad": {"price": 4.99, "image": "https://via.placeholder.com/150"},
+}
 
-    # File upload
-    uploaded_file = st.file_uploader("Choose a file", type=["csv", "txt", "xlsx"])
+# Initialize session state for cart
+if 'cart' not in st.session_state:
+    st.session_state.cart = {}
 
-    if uploaded_file is not None:
-        # Read the file based on its type
-        if uploaded_file.type == "text/csv":
-            df = pd.read_csv(uploaded_file)
-        elif uploaded_file.type == "text/plain":
-            df = pd.read_csv(uploaded_file, delimiter="\t")
-        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-            df = pd.read_excel(uploaded_file)
-        else:
-            st.error("Unsupported file type.")
-            return
+# Function to add item to cart
+def add_to_cart(item_name):
+    if item_name in st.session_state.cart:
+        st.session_state.cart[item_name] += 1
+    else:
+        st.session_state.cart[item_name] = 1
 
-        st.write("Data Preview:")
-        st.dataframe(df)
+# Function to remove item from cart
+def remove_from_cart(item_name):
+    if item_name in st.session_state.cart:
+        del st.session_state.cart[item_name]
 
-        # Process the data (for demonstration, we'll just return the same data)
-        processed_data = df  # You can add your processing logic here
+# Function to calculate total price
+def calculate_total():
+    total = 0
+    for item, quantity in st.session_state.cart.items():
+        total += food_items[item]["price"] * quantity
+    return total
 
-        # Convert DataFrame to CSV for download
-        csv = processed_data.to_csv(index=False)
-        st.download_button(
-            label="Download Processed File",
-            data=csv,
-            file_name='processed_data.csv',
-            mime='text/csv'
-        )
+# Streamlit app layout
+st.title("Food Ordering System")
 
-if __name__ == "__main__":
-    main()
+# Display food items
+st.header("Menu")
+for item, details in food_items.items():
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.image(details["image"], caption=item)
+        st.write(f"Price: ${details['price']:.2f}")
+        if st.button(f"Add {item} to Cart"):
+            add_to_cart(item)
+            st.success(f"{item} added to cart!")
+
+# Display cart
+st.header("Your Cart")
+if st.session_state.cart:
+    for item, quantity in st.session_state.cart.items():
+        st.write(f"{item}: {quantity} x ${food_items[item]['price']:.2f} = ${quantity * food_items[item]['price']:.2f}")
+        if st.button(f"Remove {item} from Cart"):
+            remove_from_cart(item)
+            st.experimental_rerun()
+    
+    total_price = calculate_total()
+    st.write(f"Total Price: ${total_price:.2f}")
+    
+    if st.button("Checkout"):
+        st.success("Thank you for your order!")
+        st.session_state.cart.clear()
+else:
+    st.write("Your cart is empty.")
+
+# Footer
+st.write("Made with ❤️ by Your Name")
