@@ -63,5 +63,5 @@ if st.session_state.cart:
 else:
     st.write("Your cart is empty.")
 
-# Footer
-st.write("Made with ❤️ by Your Name")
+
+
